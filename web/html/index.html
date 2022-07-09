@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .main input[type=text] {
+            padding: 6px;
+            background: #f4f4f4;
+            margin-top: 8px;
+            font-size: 17px;
+            border: none;
+        }
+
+        .main .search-container button {
+            padding: 6px;
+            margin-top: 8px;
+            margin-right: 16px;
+            background: #ddd;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .main .search-container button:hover {
+            background: #ccc;
+        }
+
+        .info-wrapper {
+            margin-top: 20px;
+            background: #eee;
+            padding: 10px;
+            border-radius: 10px;
+            width: fit-content;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="search-container">
+            <form action="/show" method="get">
+                <input id="search-input" type="text" placeholder="Enter your ID..." name="search">
+                <button id="search-btn" type="button">Search</button>
+            </form>
+        </div>
+    </div>
+<script>
+    const input = document.getElementById("search-input");
+    const searchBtn = document.getElementById("search-btn");
+
+    const expand = () => {
+        fetch('/show/' + input.value)
+            .then(blob => blob.json())
+            .then(function (data) {
+                let html = `
+          <div class="info-wrapper">
+          <p>UID: ${data.order_uid}</p>
+          <p>track number: ${data.track_number}</p>
+          <p>transaction: ${data.payment.transaction}</p>
+          <p>date created: ${data.date_created}</p>
+          </div>
+          `;
+                document.body.innerHTML += html;
+            })
+    };
+
+    searchBtn.addEventListener("click", expand);
+</script>
+</body>
+</html>

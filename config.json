@@ -1,0 +1,13 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": "8081"
+  },
+  "storage": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "heusebio",
+    "password": "123654789",
+    "database": "heusebio"
+  }
+}
